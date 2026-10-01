@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.65"
+        android:scaleY="0.65"
+        android:translateX="18.9"
+        android:translateY="18.9">
+        <!-- Back Folder Flap -->
+        <path
+            android:fillColor="#E0E0E0"
+            android:pathData="M24,28h24l6,6h30c3.3,0 6,2.7 6,6v38c0,3.3 -2.7,6 -6,6H24c-3.3,0 -6,-2.7 -6,-6V34c0,-3.3 2.7,-6 6,-6z" />
+
+        <!-- Document Sheet 1 -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M30,22h36l12,12v42c0,2.2 -1.8,4 -4,4H30c-2.2,0 -4,-1.8 -4,-4V26c0,-2.2 1.8,-4 4,-4z" />
+        <!-- Folded Corner -->
+        <path
+            android:fillColor="#CFD8DC"
+            android:pathData="M66,22v12h12z" />
+        <!-- Document Text Lines -->
+        <path
+            android:fillColor="#90A4AE"
+            android:pathData="M34,40h28v3H34zM34,47h38v3H34zM34,54h32v3H34z" />
+
+        <!-- Front Folder Tab & Body -->
+        <path
+            android:fillColor="#FFC107"
+            android:pathData="M18,44h30l6,6h36c2.2,0 4,1.8 4,4v26c0,3.3 -2.7,6 -6,6H24c-3.3,0 -6,-2.7 -6,-6V44z" />
+        
+        <!-- Official Seal / Verified Badge -->
+        <path
+            android:fillColor="#2E7D32"
+            android:pathData="M70,68m-14,0a14,14 0 1,0 28,0a14,14 0 1,0 -28,0" />
+        <!-- Gold Border on Seal -->
+        <path
+            android:fillColor="#00000000"
+            android:strokeColor="#FFD54F"
+            android:strokeWidth="2"
+            android:pathData="M70,68m-11,0a11,11 0 1,0 22,0a11,11 0 1,0 -22,0" />
+        <!-- Checkmark on Seal -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M65.5,67.5l3,3l7,-7l1.5,1.5l-8.5,8.5l-4.5,-4.5z" />
+    </group>
+</vector>

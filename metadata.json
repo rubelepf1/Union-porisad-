@@ -1,0 +1,6 @@
+{
+  "name": "UP File Manager",
+  "description": "Union Parishad Birth Registration & Citizen Document Management App with Scanner, Offline Storage, and Drive Sync",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
