@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Android APK
+    name: Build Android Debug APK
     runs-on: ubuntu-latest
 
     steps:
@@ -25,41 +25,33 @@ jobs:
           java-version: '17'
           cache: gradle
 
-      # 3. Setup Gradle
+      # 3. Setup Gradle using the project's Gradle Wrapper
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.10.2'
+        uses: gradle/actions/setup-gradle@v6
 
-      # 4. Check Java and Gradle versions
-      - name: Check build environment
-        run: |
-          java -version
-          gradle --version
-
-      # 5. Make Gradle wrapper executable if present
+      # 4. Make Gradle Wrapper executable
       - name: Make Gradle wrapper executable
-        run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-          fi
+        run: chmod +x ./gradlew
 
-      # 6. Build Debug APK
+      # 5. Show Gradle version
+      - name: Check Gradle version
+        run: ./gradlew --version
+
+      # 6. Run unit tests
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest --no-daemon --stacktrace
+
+      # 7. Build Debug APK
       - name: Build Debug APK
-        run: |
-          if [ -f "./gradlew" ]; then
-            ./gradlew assembleDebug --no-daemon --stacktrace
-          else
-            gradle assembleDebug --no-daemon --stacktrace
-          fi
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
 
-      # 7. Show generated APK
+      # 8. Show generated APK
       - name: Find generated APK
         run: |
           echo "Generated APK files:"
-          find app/build/outputs/apk -type f -name "*.apk" -print
+          find app/build/outputs/apk/debug -type f -name "*.apk" -print
 
-      # 8. Upload APK as GitHub Actions artifact
+      # 9. Upload APK
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
