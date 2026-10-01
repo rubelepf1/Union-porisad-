@@ -34,6 +34,11 @@ jobs:
       - name: Run unit tests
         run: gradle testDebugUnitTest --no-daemon --stacktrace
 
+      - name: Get Debug SHA-1
+        run: |
+          echo "===== DEBUG SIGNING REPORT ====="
+          gradle signingReport
+
       - name: Build Debug APK
         run: gradle assembleDebug --no-daemon --stacktrace
 
