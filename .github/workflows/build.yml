@@ -34,32 +34,22 @@ jobs:
       - name: Run unit tests
         run: gradle testDebugUnitTest --no-daemon --stacktrace
 
-      - name: Ensure Debug Keystore Exists
+      - name: Setup Stable Debug Keystore
+        env:
+          DEBUG_KEYSTORE_BASE64: ${{ secrets.DEBUG_KEYSTORE_BASE64 }}
         run: |
-          DEBUG_KEYSTORE="$HOME/.config/.android/debug.keystore"
-
-          mkdir -p "$HOME/.config/.android"
           mkdir -p "$HOME/.android"
+          mkdir -p "$HOME/.config/.android"
 
-          if [ ! -f "$DEBUG_KEYSTORE" ]; then
-            echo "Creating debug keystore..."
-
-            keytool -genkeypair \
-              -v \
-              -keystore "$DEBUG_KEYSTORE" \
-              -storepass android \
-              -alias AndroidDebugKey \
-              -keypass android \
-              -keyalg RSA \
-              -keysize 2048 \
-              -validity 10000 \
-              -dname "CN=Android Debug,O=Android,C=US"
+          if [ -z "$DEBUG_KEYSTORE_BASE64" ]; then
+            echo "::error::DEBUG_KEYSTORE_BASE64 GitHub Secret is required for stable debug signing."
+            exit 1
           fi
 
-          cp "$DEBUG_KEYSTORE" "$HOME/.android/debug.keystore" 2>/dev/null || true
-
-          echo "Debug keystore created:"
-          ls -l "$DEBUG_KEYSTORE"
+          echo "Restoring stable debug keystore from GitHub Secret..."
+          echo "$DEBUG_KEYSTORE_BASE64" | base64 -d > "$HOME/.android/debug.keystore"
+          cp "$HOME/.android/debug.keystore" "$HOME/.config/.android/debug.keystore"
+          echo "Stable debug keystore restored successfully."
 
       - name: Get Debug SHA-1
         run: |
