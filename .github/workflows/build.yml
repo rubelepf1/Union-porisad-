@@ -13,11 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout source code
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      # 2. Setup Java 17
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
@@ -25,33 +23,25 @@ jobs:
           java-version: '17'
           cache: gradle
 
-      # 3. Setup Gradle using the project's Gradle Wrapper
-      - name: Setup Gradle
+      - name: Setup Gradle 9.3.1
         uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.3.1'
 
-      # 4. Make Gradle Wrapper executable
-      - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
-
-      # 5. Show Gradle version
       - name: Check Gradle version
-        run: ./gradlew --version
+        run: gradle --version
 
-      # 6. Run unit tests
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest --no-daemon --stacktrace
+        run: gradle testDebugUnitTest --no-daemon --stacktrace
 
-      # 7. Build Debug APK
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        run: gradle assembleDebug --no-daemon --stacktrace
 
-      # 8. Show generated APK
       - name: Find generated APK
         run: |
           echo "Generated APK files:"
           find app/build/outputs/apk/debug -type f -name "*.apk" -print
 
-      # 9. Upload APK
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
